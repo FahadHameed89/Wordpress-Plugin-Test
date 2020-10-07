@@ -43,8 +43,9 @@
         $result = $_POST['value1'] / $_POST['value2'];
         break;
     }
-
-    }
+}
+    // Output Buffer. Hold onto the ECHOs, and don't send them yet.
+    ob_start();
     ?>
     <form method="POST" action="#">
     <label for="num1">
@@ -89,5 +90,12 @@
         <?php echo $result; ?>
     </p>
         <?php endif;
-    
+
+    // End output Buffer
+    // Everything after this point will be ECHOED like normal again.
+    $outputString = ob_get_clean();
+
+    // Shortcodes with output should RETURN a STRING.
+    return $outputString;
+
  }
